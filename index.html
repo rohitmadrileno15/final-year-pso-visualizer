@@ -5,7 +5,7 @@
 
   <title> Particle Swarm Optimization Visualizer </title>
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/styles.css" type="text/css">
 
 </head>
@@ -61,8 +61,8 @@ Visualization of Particle Swarm Optimization
 <br/>
 <br/>
                  <form>
-                                  <h3>Optimization parameters</h3> 
-                                  <br/>
+                                  <h3 class="tag is-light">Optimization parameters</h3> 
+                                  <br/><br/>
 
                   <div class="columns  is-multiline is-mobile">
 
@@ -97,7 +97,7 @@ Visualization of Particle Swarm Optimization
 
                  <div class="column is-one-quarter" style="color: black; font-weight:bold;">
                       
-                      Population
+                      Particles (Numbers)
 
                   </div>
 
@@ -151,7 +151,15 @@ Visualization of Particle Swarm Optimization
                  
                    <div class="buttons has-addons"  >
                  <button class="button is-warning" type="button" id="refresh">Submit Values</button> 
+                 &nbsp;
+                     <i class="fas fa-arrow-right"></i>
+&nbsp;
                  <button class="button is-info" type="button" id="start">Start</button>
+                 &nbsp;
+                     <i class=" fas fa-spinner fa-pulse" style="display:none;" id="pulseId"></i>
+&nbsp;
+                
+
                   </div>
    
               </div>
@@ -195,8 +203,19 @@ Visualization of Particle Swarm Optimization
  -->            
           </section> 
         </div>
-        
+
+      <footer class="footer" style="background-color:inherit">
+  <div class="content has-text-centered" >
+    <p style="font-size:1rem">
+      Project on <strong>Web based Visualisation of Particle Swarm Optimization</strong> &nbsp;<i class="fab fa-angellist"></i>
+
+
+    </p>
+
+  </div>
+</footer>  
       </div>
+
     </div>
     
   <!-- JS -->
@@ -265,6 +284,8 @@ Visualization of Particle Swarm Optimization
     }*/
     
   </script>
+
+
 
   </body>
   

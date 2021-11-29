@@ -227,6 +227,7 @@ function psoViz(id, expr, options) {
   d3.select('#start')
     .on('click', function(d) {
             tipProgress = tipProgress.style("display", "block")   
+            document.getElementById("pulseId").style.display = "block"
  
 
       psoVizAlgo();
