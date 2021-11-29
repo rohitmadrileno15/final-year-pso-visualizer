@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title> Particle Swarm Optimization Visualizer </title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+  <link rel="stylesheet" href="css/styles.css" type="text/css">
+
+</head>
+
+  <body>
+<nav class="navbar" role="navigation" aria-label="main navigation"
+  style="background-color:Black" 
+  >
+  <div class="navbar-brand">
+    <a class="navbar-item" href="#"
+
+    style="color: white;
+    font-weight:bold;
+    font-size:20px">
+Visualization of Particle Swarm Optimization
+    </a>
+
+
+  </div>
+</nav>
+
+   
+    <!-- Page -->
+    <div class="wrapper row">
+      <div id="container" class="clear">
+
+        <section id="graph" class="clear">
+          
+          <progress id="iterationprogress" class="progress is-success" style=" display: none; transition: 0.3s all;" value="0" max="100">100%</progress>
+
+          <figure><div id="psoViz"></div>
+            <figcaption>
+
+              <div class="container">
+
+                                   <form>
+                     
+                     <div class="field">
+ 
+                       <label class="label"   for="expr">Functional expression f(x,y) </label>
+                      <div class="control">
+                        
+                        <input   class = "input is-focused" type="text" id="expr" name="expr" value='(1 + ((x + y + 1) ^ 2) * (19 - 14 * x + 3 * x * x - 14 * y + 6 * x * x + 3 * y * y)) * (30 + ((2 * x - 3 * y)^2) * (18 - 32 * x + 12 * x * x + 48 * y - 36 * x * y + 27 * y * y))'/>
+
+ 
+                      </div>
+ 
+                    </div>
+                           
+                  </form>
+
+                
+<br/>
+<br/>
+                 <form>
+                                  <h3>Optimization parameters</h3> 
+                                  <br/>
+
+                  <div class="columns  is-multiline is-mobile">
+
+                  <div class="column is-one-quarter" style="color: black; font-weight:bold;">
+                      
+                      X
+
+                  </div>
+
+                  <div class="column is-one-quarter" style="margin:2px">
+                    <input class = formShort type="text" id="xMin" name="xMin" value='-2'>
+
+                  </div>
+                  <div class="column is-one-quarter" style="margin:2px">
+                              <input class = formShort type="text" id="xMax" name="xMax" value='2'>
+                  </div>
+
+                 <div class="column is-one-quarter" style="color: black; font-weight:bold;">
+                      
+                      Y
+
+                  </div>
+
+                  <div class="column is-one-quarter" style="margin:2px">
+<input class = formShort type="text" id="yMin" name="yMin" value='-2'>
+
+                  </div>
+                  <div class="column is-one-quarter" style="margin:2px">
+                      <input class = formShort type="text" id="yMax" name="yMax" value='1'>
+                  </div>
+
+
+                 <div class="column is-one-quarter" style="color: black; font-weight:bold;">
+                      
+                      Population
+
+                  </div>
+
+                  <div class="column is-half" style="margin:2px">
+                        <input class = formLong type="text" id="pop" name="pop" value='50'>
+                  </div>
+ 
+                  <div class="column is-one-quarter" style="color: black; font-weight:bold;">
+                      
+                      Iterations
+
+                  </div>
+
+                  <div class="column is-half" style="margin:2px">
+                      <input class = formLong type="text" id="iteration" name="iteration" value="100">
+                  </div>
+
+
+                  <div class="column is-one-quarter" style="color: black; font-weight:bold;">
+                      
+                     &omega;
+
+                  </div>
+
+                  <div class="column is-half" style="margin:2px">
+                        <input class = formLong type="text" id="omega" name="omega" value="0.72984">
+                  </div>
+
+
+                  <div class="column is-one-quarter" style="color: black; font-weight:bold;">
+                      
+                      &phi;<sub>p</sub>
+                  </div>
+
+                  <div class="column is-half" style="margin:2px">
+                      <input class = formLong type="text" id="phip" name="phip" value="1">
+                  </div>
+
+
+                 <div class="column is-one-quarter" style="color: black; font-weight:bold;">
+                      
+                      &phi;<sub>g</sub>
+                  </div>
+
+                  <div class="column is-half" style="margin:2px">
+                      <input class = formLong type="text" id="phig" name="phig" value="1">
+                  </div>
+
+ 
+                 </form> 
+                 
+                   <div class="buttons has-addons"  >
+                 <button class="button is-warning" type="button" id="refresh">Submit Values</button> 
+                 <button class="button is-info" type="button" id="start">Start</button>
+                  </div>
+   
+              </div>
+
+              <br/><br/>
+                      <article class="message is-link" >
+
+            <div class="message-body" id="individualVal" style="display: none;   transition: width 1s linear 0.5s; ">
+
+ 
+            </div>
+          </article>
+ 
+
+
+            </figcaption>
+
+
+          </figure>
+
+
+        </section>
+        
+        <div id="content">
+
+  
+          <section class="clear">
+ <br/><br/><br/>     
+     <div class=" box notification is-info">
+ 
+                             <p id = psoVizResults style="font-size:20px"></p>              
+</div>        
+ 
+       
+<!--             <article class="contentBox">
+              <h3>Note</h3>
+              <p><font color="#3299BB">&omega;</font>, <font color="#3299BB">&phi;<sub>p</sub></font> and <font color="#3299BB">&phi;<sub>g</sub></font> control the behaviour and efficacy of the PSO method. <br>
+              They can have a large impact on the optimization performance. Choose them precautiously.</p>
+             <p>To update the expression, please note that <font color="#3299BB">&#8730;<span style="text-decoration: overline">x</span></font> is written <font color="#FF9900">sqrt(x)</font>, <font color="#3299BB">|x|</font> is equal to <font color="#FF9900">abs(x)</font>, and <font color="#3299BB">e<sup>x</sup></font> is written <font color="#FF9900">exp(x)</font>.</p> 
+            </article>
+ -->            
+          </section> 
+        </div>
+        
+      </div>
+    </div>
+    
+  <!-- JS -->
+  <script src="js/mathjs/math.min.js"></script>  
+  <script src="js/d3v4/d3.min.js"></script>
+  <script src="js//d3-scale-chromatic.min.js"></script>
+  <script src="js/d3-contour.min.js"></script>
+  <script src="js/psoViz.js"></script>
+  
+  <script>
+  
+    // Define expression
+    formula = "".concat('f(x,y) = ', document.getElementById("expr").value);
+    expr = math.parser().eval(formula);
+    
+    // Define options
+    var options = {
+      grid: { xMin: parseFloat(document.getElementById("xMin").value), 
+              xMax: parseFloat(document.getElementById("xMax").value), 
+              yMin: parseFloat(document.getElementById("yMin").value), 
+              yMax: parseFloat(document.getElementById("yMax").value) },
+      iteration: parseFloat(document.getElementById("iteration").value),
+      number: parseFloat(document.getElementById("pop").value),
+      w: parseFloat(document.getElementById("omega").value),
+      c1: parseFloat(document.getElementById("phip").value),
+      c2: parseFloat(document.getElementById("phig").value)
+    };
+    
+    // Call psoViz function
+    psoViz("#psoViz", expr, options);
+    
+    // Add button that call psoViz to refresh
+    d3.select('#refresh')
+      .on('click', function(d) {
+        
+	      d3.select('#psoViz').select("svg").remove();
+	      d3.select('#psoViz').select(".tooltip").remove();
+	      d3.select('#psoVizResults').selectAll('table').remove();
+	      
+	      formula = "".concat('f(x,y) = ', document.getElementById("expr").value);
+        expr = math.parser().eval(formula);
+	      
+        var options = {
+          grid: { xMin: parseFloat(document.getElementById("xMin").value), 
+              xMax: parseFloat(document.getElementById("xMax").value), 
+              yMin: parseFloat(document.getElementById("yMin").value), 
+              yMax: parseFloat(document.getElementById("yMax").value) },
+          iteration: parseFloat(document.getElementById("iteration").value),
+          number: parseFloat(document.getElementById("pop").value),
+          w: parseFloat(document.getElementById("omega").value),
+          c1: parseFloat(document.getElementById("phip").value),
+          c2: parseFloat(document.getElementById("phig").value)
+        };
+  	      
+        psoViz("#psoViz", expr, options);
+    });
+    
+    // Example expressions
+    /*function expr(x, y) { 
+        return Math.pow(x + 2 * y -7, 2) + Math.pow(2 * x + y - 5, 2);
+    }*/
+    
+    /*function expr(x, y) { 
+        return Math.pow(Math.sin(3 * Math.PI * x), 2) + Math.pow(x - 1, 2) * (1 + Math.pow(Math.sin(3 * Math.PI * y), 2) + 
+        Math.pow(y - 1, 2) * (1 + Math.pow(Math.sin(2 * Math.PI * y), 2)));
+    }*/
+    
+  </script>
+
+  </body>
+  
+</html>
