@@ -8,7 +8,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="css/styles.css" type="text/css">
 
+
+
 </head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 
   <body>
 <nav class="navbar" role="navigation" aria-label="main navigation"
@@ -33,6 +37,7 @@ Visualization of Particle Swarm Optimization
       <div id="container" class="clear">
 
         <section id="graph" class="clear">
+
           
           <progress id="iterationprogress" class="progress is-success" style=" display: none; transition: 0.3s all;" value="0" max="100">100%</progress>
 
@@ -129,7 +134,7 @@ Visualization of Particle Swarm Optimization
 
                   <div class="column is-one-quarter" style="color: black; font-weight:bold;">
                       
-                      &phi;<sub>p</sub>
+                      P<sub>b</sub>
                   </div>
 
                   <div class="column is-half" style="margin:2px">
@@ -139,7 +144,7 @@ Visualization of Particle Swarm Optimization
 
                  <div class="column is-one-quarter" style="color: black; font-weight:bold;">
                       
-                      &phi;<sub>g</sub>
+                      G<sub>b</sub>
                   </div>
 
                   <div class="column is-half" style="margin:2px">
@@ -188,21 +193,34 @@ Visualization of Particle Swarm Optimization
   
           <section class="clear">
  <br/><br/><br/>     
-     <div class=" box notification is-info">
+
+
+
+     <div class=" box notification is-info" style="display:none" id="box-viz">
  
                              <p id = psoVizResults style="font-size:20px"></p>              
-</div>        
+          
+          <br/>
+          <button id="show_graph_button" hidden=true onclick=show_chart_graph() class="button is-primary is-rounded">
+            Show Graph
+          </button>
+
+      </div>        
+
+      <div id="curve_chart" style="width: 1150px; height: 500px;  "></div>
  
        
 <!--             <article class="contentBox">
               <h3>Note</h3>
               <p><font color="#3299BB">&omega;</font>, <font color="#3299BB">&phi;<sub>p</sub></font> and <font color="#3299BB">&phi;<sub>g</sub></font> control the behaviour and efficacy of the PSO method. <br>
               They can have a large impact on the optimization performance. Choose them precautiously.</p>
-             <p>To update the expression, please note that <font color="#3299BB">&#8730;<span style="text-decoration: overline">x</span></font> is written <font color="#FF9900">sqrt(x)</font>, <font color="#3299BB">|x|</font> is equal to <font color="#FF9900">abs(x)</font>, and <font color="#3299BB">e<sup>x</sup></font> is written <font color="#FF9900">exp(x)</font>.</p> 
+             <p>To update the expression, please note that <font color="#3299BB">&#8730;<span style="text-decoration: overline">x</span></font> is written <font color="#FF9900">sqrt(x)</font>, <font color="#3299BB">|x|</font> is equal to <font color="#FF9900">abs(x)</font>, and <font color="#3299BB">e<sup>x</sup></font> is written <font color="#FF9900">exp( x)</font>.</p> 
             </article>
  -->            
           </section> 
         </div>
+
+        <span id="hidden-chart" style=""></span>
 
       <footer class="footer" style="background-color:inherit">
   <div class="content has-text-centered" >
@@ -226,6 +244,46 @@ Visualization of Particle Swarm Optimization
   <script src="js/psoViz.js"></script>
   
   <script>
+
+
+
+
+function show_chart_graph( ) {
+
+  document.getElementById("show_graph_button").hidden = true
+
+    google.charts.load('current', {'packages':['corechart']});
+
+        if (   document.getElementById("hidden-chart").innerText )
+        {
+      google.charts.setOnLoadCallback(drawChart);          
+        }      
+
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable( eval((document.getElementById("hidden-chart").innerText)));
+
+
+         
+  
+
+        var options = {
+          title: 'Functional Value vs Iteration graph',
+          curveType: 'function',
+          legend: { position: 'bottom' },
+          y: {
+            Temps: {label: 'Values'} 
+            
+          }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+
+}
+
   
     // Define expression
     formula = "".concat('f(x,y) = ', document.getElementById("expr").value);

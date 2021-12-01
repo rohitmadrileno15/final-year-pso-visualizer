@@ -228,6 +228,7 @@ function psoViz(id, expr, options) {
     .on('click', function(d) {
             tipProgress = tipProgress.style("display", "block")   
             document.getElementById("pulseId").style.display = "block"
+            document.getElementById("box-viz").style.display = "block"
  
 
       psoVizAlgo();
@@ -235,6 +236,10 @@ function psoViz(id, expr, options) {
   
   function psoVizAlgo() { 
     // Criteria: max iteration
+
+    var chart_array = [
+    ['Function Values', 'Iterations' ]];
+
     for (var it = 0; it < cfg.iteration; ++it) {
 
       // Loop
@@ -252,7 +257,7 @@ function psoViz(id, expr, options) {
 
 
  
-
+            chart_array.push([it, gbest.pbestEval])
       
       // Update results table      
       tipBestX = tipBestX.transition("simulation")
@@ -264,6 +269,7 @@ function psoViz(id, expr, options) {
       tipBestF = tipBestF.transition("simulation")
         .duration(distance(gbest.velocity.x, gbest.velocity.y) / cfg.animationSpeed)
         .text('f(x,y) = ' + gbest.pbestEval);
+
       tipBestIt = tipBestIt.transition("simulation")
         .duration(distance(gbest.velocity.x, gbest.velocity.y) / cfg.animationSpeed)
         .text('No. of Iteration: ' + (it + 1));
@@ -276,6 +282,10 @@ function psoViz(id, expr, options) {
         
 
     }
+
+    document.getElementById("hidden-chart").innerText = JSON.stringify(chart_array)
+     // console.log(eval(document.getElementById("hidden-chart").innerText))
+     document.getElementById("show_graph_button").hidden = false
   }
   
   
