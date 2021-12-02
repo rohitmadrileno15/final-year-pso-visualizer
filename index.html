@@ -30,21 +30,32 @@ Visualization of Particle Swarm Optimization
 
   </div>
 </nav>
-
-   
+  
+     
     <!-- Page -->
     <div class="wrapper row">
       <div id="container" class="clear">
+
+        <div class="box">
+        <span style="font-size:1rem">
+      <a style="border-bottom: 2px solid black;" href="https://mae.ufl.edu/mdo/Papers/5334.pdf"> Particle Swarm Optimization (PSO)</a> is a Metaheuristic algorithm, which uses a model of a swarm of particles to find the minimum value of a given function.<br/> Below is a tool to understand and test it in a more practical way. 
+
+    </span>
+          
+        </div>
 
         <section id="graph" class="clear">
 
           
           <progress id="iterationprogress" class="progress is-success" style=" display: none; transition: 0.3s all;" value="0" max="100">100%</progress>
 
-          <figure><div id="psoViz"></div>
+          <figure>
+            <div id="psoViz"></div>
+
             <figcaption>
 
               <div class="container">
+
 
                                    <form>
                      
@@ -53,21 +64,51 @@ Visualization of Particle Swarm Optimization
                        <label class="label"   for="expr">Functional expression f(x,y) </label>
                       <div class="control">
                         
-                        <input   class = "input is-focused" type="text" id="expr" name="expr" value='(1 + ((x + y + 1) ^ 2) * (19 - 14 * x + 3 * x * x - 14 * y + 6 * x * x + 3 * y * y)) * (30 + ((2 * x - 3 * y)^2) * (18 - 32 * x + 12 * x * x + 48 * y - 36 * x * y + 27 * y * y))'/>
+                        <input   class = "input is-hovered  " type="text" id="expr" name="expr" value='(1 + ((x + y + 1) ^ 2) * (19 - 14 * x + 3 * x * x - 14 * y + 6 * x * x + 3 * y * y)) * (30 + ((2 * x - 3 * y)^2) * (18 - 32 * x + 12 * x * x + 48 * y - 36 * x * y + 27 * y * y))'/>
 
  
                       </div>
- 
+                       
                     </div>
+
                            
                   </form>
 
                 
 <br/>
-<br/>
+                      <button class="button is-info is-small is-outlined" onclick=show_func()>
+                        Check other functions
+                      </button> 
+                 <div id="modal-class-function" class="modal"  >
+                  <div class="modal-background" ></div>
+                  <div class="modal-content" style="background-color:  white; margin: 3px; padding: 5px; padding-left: 8px;">
+                <br/>
+                <h2 class="label">Standard Functions</h3>
+                 
+                <ul style="font-size:18px">
+                  <li>
+                    <strong>De Jong's function</strong> &nbsp;  f(x) = x^2 + y^2
+                  </li>
+
+                  <li>
+                    <strong>Rosenbrock's valley</strong> &nbsp;  f(x) = 100(y - x^2)^2 + (1 - x)^2
+                  </li>
+
+ 
+
+
+                </ul>
+                <br/>
+                Check out more optimization functions in <a href="https://robertmarks.org/Classes/ENGR5358/Papers/functions.pdf">here </a>
+                  </div>
+                  <button onclick=show_func() class="modal-close is-large" aria-label="close"></button>
+                </div>
+
+
+<br/><br/>
                  <form>
-                                  <h3 class="tag is-light">Optimization parameters</h3> 
-                                  <br/><br/>
+                                  <h3 class="label">Optimization parameters</h3> 
+                                   
 
                   <div class="columns  is-multiline is-mobile">
 
@@ -78,11 +119,11 @@ Visualization of Particle Swarm Optimization
                   </div>
 
                   <div class="column is-one-quarter" style="margin:2px">
-                    <input class = formShort type="text" id="xMin" name="xMin" value='-2'>
+                    <input class="input is-small  " type="text" id="xMin" name="xMin" value='-2'>
 
                   </div>
                   <div class="column is-one-quarter" style="margin:2px">
-                              <input class = formShort type="text" id="xMax" name="xMax" value='2'>
+                              <input class="input is-small  " type="text" id="xMax" name="xMax" value='2'>
                   </div>
 
                  <div class="column is-one-quarter" style="color: black; font-weight:bold;">
@@ -92,11 +133,11 @@ Visualization of Particle Swarm Optimization
                   </div>
 
                   <div class="column is-one-quarter" style="margin:2px">
-<input class = formShort type="text" id="yMin" name="yMin" value='-2'>
+<input class="input is-small  " type="text" id="yMin" name="yMin" value='-2'>
 
                   </div>
                   <div class="column is-one-quarter" style="margin:2px">
-                      <input class = formShort type="text" id="yMax" name="yMax" value='1'>
+                      <input class="input is-small " type="text" id="yMax" name="yMax" value='1'>
                   </div>
 
 
@@ -107,7 +148,7 @@ Visualization of Particle Swarm Optimization
                   </div>
 
                   <div class="column is-half" style="margin:2px">
-                        <input class = formLong type="text" id="pop" name="pop" value='50'>
+                        <input class="input is-small is-rounded" type="text" id="pop" name="pop" value='50'>
                   </div>
  
                   <div class="column is-one-quarter" style="color: black; font-weight:bold;">
@@ -117,39 +158,56 @@ Visualization of Particle Swarm Optimization
                   </div>
 
                   <div class="column is-half" style="margin:2px">
-                      <input class = formLong type="text" id="iteration" name="iteration" value="100">
+                      <input class="input is-small is-rounded" type="text" id="iteration" name="iteration" value="10">
                   </div>
 
 
                   <div class="column is-one-quarter" style="color: black; font-weight:bold;">
                       
-                     &omega;
+                     &omega; (Inertia factor)
 
                   </div>
 
                   <div class="column is-half" style="margin:2px">
-                        <input class = formLong type="text" id="omega" name="omega" value="0.72984">
+                        <input class="input is-small is-rounded" type="text" id="omega" name="omega" value="0.72984">
                   </div>
 
 
                   <div class="column is-one-quarter" style="color: black; font-weight:bold;">
                       
-                      P<sub>b</sub>
+                      P<sub>b</sub> (Personal Best)
                   </div>
 
                   <div class="column is-half" style="margin:2px">
-                      <input class = formLong type="text" id="phip" name="phip" value="1">
+                      <input class="input is-small is-rounded" type="text" id="phip" name="phip" value="1">
                   </div>
 
 
                  <div class="column is-one-quarter" style="color: black; font-weight:bold;">
                       
-                      G<sub>b</sub>
+                      G<sub>b</sub> (Global Best)
                   </div>
 
                   <div class="column is-half" style="margin:2px">
-                      <input class = formLong type="text" id="phig" name="phig" value="1">
+                      <input class="input is-small is-rounded" type="text" id="phig" name="phig" value="1">
                   </div>
+
+                 <div class="column is-one-quarter" style="color: black; font-weight:bold;">
+                      
+                      Animation (x times)
+                  </div>
+
+                  <div class="column is-half" style="margin:2px">
+                  <div class="select is-rounded is-small">
+                    <select id="animation-tag">
+                      <option>1</option>
+                      <option>2</option>
+                      <option>0.5</option>
+                                            <option>5</option>
+                    </select>
+                  </div>
+                  </div>
+
 
  
                  </form> 
@@ -163,6 +221,8 @@ Visualization of Particle Swarm Optimization
                  &nbsp;
                      <i class=" fas fa-spinner fa-pulse" style="display:none;" id="pulseId"></i>
 &nbsp;
+
+
                 
 
                   </div>
@@ -220,14 +280,13 @@ Visualization of Particle Swarm Optimization
           </section> 
         </div>
 
-        <span id="hidden-chart" style=""></span>
+        <span id="hidden-chart" style="display: none;"></span>
 
       <footer class="footer" style="background-color:inherit">
   <div class="content has-text-centered" >
+
     <p style="font-size:1rem">
       Project on <strong>Web based Visualisation of Particle Swarm Optimization</strong> &nbsp;<i class="fab fa-angellist"></i>
-
-
     </p>
 
   </div>
@@ -245,8 +304,11 @@ Visualization of Particle Swarm Optimization
   
   <script>
 
-
-
+function show_func( )  
+  {
+   var element = document.getElementById("modal-class-function");
+   element.classList.toggle("is-active");
+} 
 
 function show_chart_graph( ) {
 
@@ -299,7 +361,8 @@ function show_chart_graph( ) {
       number: parseFloat(document.getElementById("pop").value),
       w: parseFloat(document.getElementById("omega").value),
       c1: parseFloat(document.getElementById("phip").value),
-      c2: parseFloat(document.getElementById("phig").value)
+      c2: parseFloat(document.getElementById("phig").value),
+                animationSpeed: parseFloat(document.getElementById("animation-tag").value)
     };
     
     // Call psoViz function
@@ -325,7 +388,8 @@ function show_chart_graph( ) {
           number: parseFloat(document.getElementById("pop").value),
           w: parseFloat(document.getElementById("omega").value),
           c1: parseFloat(document.getElementById("phip").value),
-          c2: parseFloat(document.getElementById("phig").value)
+          c2: parseFloat(document.getElementById("phig").value),
+          animationSpeed: parseFloat(document.getElementById("animation-tag").value)
         };
   	      
         psoViz("#psoViz", expr, options);

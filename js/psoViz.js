@@ -26,7 +26,7 @@ function psoViz(id, expr, options) {
     color: 'ff6600',
     colorBest: "#cb6889",
     // Algorithm parameters
-    iteration: 100,
+    iteration: 10,
 
     number: 50,
     w: 0.72984,
@@ -217,7 +217,7 @@ function psoViz(id, expr, options) {
   tipBestX.text('x = ' + gbest.pbest.x);
   tipBestY.text('y = ' + gbest.pbest.y);
   tipBestF.text('f(x,y) = ' + gbest.pbestEval);
-  tipBestIt.text('No. of Iteration: ' + 0);
+  tipBestIt.text('No. of Iteration(s): ' + 0);
   
   ////////////////////////////////////////////////////////
   // Simulation //////////////////////////////////////////
@@ -272,10 +272,10 @@ function psoViz(id, expr, options) {
 
       tipBestIt = tipBestIt.transition("simulation")
         .duration(distance(gbest.velocity.x, gbest.velocity.y) / cfg.animationSpeed)
-        .text('No. of Iteration: ' + (it + 1));
+        .text('No. of Iteration(s): ' + (it + 1));
 
       tipProgress = tipProgress.transition("simulation")
-      .duration(distance(gbest.velocity.x, gbest.velocity.y) / cfg.animationSpeed)
+      .duration(distance(gbest.velocity.x, gbest.velocity.y)  / (cfg.animationSpeed ))
       .attr("value",  (it+1/cfg.iteration)*100)
 
       console.log(((it+1)/cfg.iteration)*100) 
@@ -343,8 +343,20 @@ function psoViz(id, expr, options) {
   }
   
   function distance(x, y) {
+    // var speed = 1;
+    // if (document.getElementById("animation-tag").value == 'Fast') {
+    //   speed = 0.5
+    // }
+
+    // if (document.getElementById("animation-tag").value == 'Slow') {
+    //   speed = 4
+    // }
     
-    return Math.sqrt(Math.pow(scaleX(x),2) + Math.pow(scaleY(y), 2));
+    // if (document.getElementById("animation-tag").value == 'Very Fast') {
+    //   speed = 0.1
+    // }
+    
+    return (   (Math.sqrt(Math.pow(scaleX(x),2) + Math.pow(scaleY(y), 2))));
     
     
   }

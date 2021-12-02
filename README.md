@@ -3,6 +3,6 @@ Visualisation of Particle Swarm Optimization
 ============
 
 ## Stacks used
-* Js
-* HTML,CSS
-* D3.Js
+[x] Js
+[x] HTML,CSS
+[x] D3.Js
