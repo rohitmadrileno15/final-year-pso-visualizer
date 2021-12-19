@@ -50,7 +50,7 @@ Visualization of Particle Swarm Optimization
           <progress id="iterationprogress" class="progress is-success" style=" display: none; transition: 0.3s all;" value="0" max="100">100%</progress>
 
           <figure>
-            <div style="display: None;" id="psoViz" ></div>
+            <div   id="psoViz" ></div>
 
       
             <figcaption>
@@ -249,7 +249,9 @@ Visualization of Particle Swarm Optimization
 
 
         </section>
-      <div id="curve_chart" style="width: 800px; height: 500px; float: right; "></div>        
+
+<!--       <div id="curve_chart" style="width: 800px; height: 500px; float: right; "></div>         -->
+
         <div id="content">
 
   
@@ -269,7 +271,7 @@ Visualization of Particle Swarm Optimization
 
       </div>        
 
-<!--       <div id="curve_chart" style="width: 1150px; height: 500px;  "></div> -->
+      <div id="curve_chart" style="width: 1150px; height: 500px;  "></div>
  
        
 <!--             <article class="contentBox">
@@ -332,10 +334,9 @@ function show_chart_graph( ) {
   
 
         var options = {
-          title: 'Functional Value vs Iteration graph',
+          title: 'Convergence Plot',
           curveType: 'function',
-          legend: 'bottom' ,
-           is3D  : true ,
+          legend: { position: 'bottom' },
           y: {
             Temps: {label: 'Values'} 
             

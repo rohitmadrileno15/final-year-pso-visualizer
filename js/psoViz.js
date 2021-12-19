@@ -54,6 +54,7 @@ function psoViz(id, expr, options) {
   
   function getgbest(data) {
     best = data.getMin('pbestEval');
+    console.log("best",best)
     best.color = cfg.colorBest;
     return best;
   }	
@@ -291,6 +292,7 @@ function psoViz(id, expr, options) {
   
   // Function loop (Code can be improved with vector algebra ?)
   function psoVizLoop(data, cfg) {
+
         
         // Update velocity 
         data.forEach(function(d) {
@@ -299,6 +301,7 @@ function psoViz(id, expr, options) {
           d.velocity.y = cfg.w * d.velocity.y + cfg.c1 * Math.random() * (d.pbest.y - d.position.y) + 
                        cfg.c2 * Math.random() * (gbest.position.y - d.position.y);
         });
+
         
         // Clamp velocity
         data.forEach(function(d) {
@@ -343,18 +346,6 @@ function psoViz(id, expr, options) {
   }
   
   function distance(x, y) {
-    // var speed = 1;
-    // if (document.getElementById("animation-tag").value == 'Fast') {
-    //   speed = 0.5
-    // }
-
-    // if (document.getElementById("animation-tag").value == 'Slow') {
-    //   speed = 4
-    // }
-    
-    // if (document.getElementById("animation-tag").value == 'Very Fast') {
-    //   speed = 0.1
-    // }
     
     return (   (Math.sqrt(Math.pow(scaleX(x),2) + Math.pow(scaleY(y), 2))));
     
